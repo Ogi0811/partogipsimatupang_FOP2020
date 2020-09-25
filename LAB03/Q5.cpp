@@ -8,6 +8,7 @@ int main () {
   srand(time(NULL));
   float num = rand() % 100 ,answer;
 
+  //Greeting from the server
   cout <<"Hello Bro! Welcome to the simple game!" <<endl;
   cout <<"From 1 - 100, You should guess what the number i have" <<endl;
   cout <<"What is your guess?" <<endl;

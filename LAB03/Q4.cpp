@@ -3,10 +3,10 @@ using namespace std;
 
 int main () {
   float angka1,angka2;
-
+  //input the first number
   cout << "Masukkan angka Pertama" <<endl;
   cin >> angka1;
-
+  //input the second number
   cout << "Masukkan angka Kedua" <<endl;
   cin >> angka2;
 
@@ -14,6 +14,7 @@ int main () {
   cout << "/n 1. penjumalahan /n 2. pengurangan /n 3. pembagian /n 4. perkalian";
   cin >> A;
 
+  //To find the output
   switch(A) 
   {
     case '1' :

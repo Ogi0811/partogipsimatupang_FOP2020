@@ -4,9 +4,10 @@ using namespace std;
 int main () {
 
   int time;
+  //Input what time now
   cout << "input what time now: " <<endl;
   cin >> time;
-
+  //greting from the server
   if(time >= 0.00 && time <= 11.59) {
     cout << "Good Morning";
   }
