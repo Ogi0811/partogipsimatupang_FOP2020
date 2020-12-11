@@ -1,93 +1,70 @@
 #include <iostream>
 #include <fstream>
-#include <cstdlib>
 using namespace std;
 
-int main (){
-  ifstream input;
-  input.open("lab11_grade.txt");
-
-  if(input.fail()){
-    cout <<" ERROR; File could not open."<<endl;
-    exit(1);
-  }
-
-  const int array_size = 40;
-
-  string name[array_size];
-  double grade[array_size];
-
-  int i=0;
-  string line;
-
-  while(getline(input, line)) {
-    int nameEndPos = line.find('-')-1;
-    name[i]=line.substr(0, nameEndPos);
-    int gradeStartPos = line.find('-')+1;
-    int gradeEndPos = line.find('\n');
-    grade[i]=stod(line.substr(gradeStartPos, gradeEndPos));
-    ++i;
-  }
-
-
-  for(int i=0; i< array_size; i++) {
-    cout << name[i] <<" = "<<grade[i] <<endl;
-  }
-  cout <<endl;
-
-  //To find lowest grade
-  string minname = name[0];
-  double min = grade[0];
-  for(int i=0; i<array_size; i++) {
-   if(grade[i]<min){
-      min=grade[i];
-      minname=name[i];
+//for sortir
+void sort(int arr[], int arr_size){
+  int guess = arr[1]; 
+  for (int i = 0; i < arr_size; i++){ 
+    for (int j = i+1; j < arr_size + 1; j++){
+      if (arr[i] > arr[j]){
+        guess = arr[i];
+        arr[i] = arr[j];
+        arr[j] = guess;
+      }
     }
   }
-
-// To find Highest grade
- string maxname = name[0];
- double max = grade[0];
- for(int i=0; i<array_size; i++) {
-  if(grade[i]>max){
-    max=grade[i];
-    maxname=name[i];
-  }
- }
-
-
-//Grade average
-int sum = 0;
-double grade_average;
-for(int i=0; i<array_size; i++){
-  sum+=grade[i];
+  for (int i = 0; i < arr_size; i++)
+  cout << arr[i] << '\n';
 }
-grade_average = sum/array_size;
-
-//To know Student Who Pass
-cout << "=====Student Who Pass====="<<endl;
-for(int i=0; i<array_size; i++){
-  if(grade[i]>grade_average){
-    cout << name[i]<<endl;
+//code binary search
+void binarysearch(int arr[], int key, int arr_size, int index, int low, int high){
+  while(high >= low){
+    int mid = (high + low)/2;
+    if (key < arr[mid]){
+      high = mid - 1;
+    }
+    else if (key == arr[mid]){
+      index = mid;
+      break;
+    }
+    else if (key > arr[mid]){
+      low = mid + 1;
+    }
   }
-}
-cout <<endl;
+  cout << key << '\n' << arr[index];
 
-
- //To know Student Who did not Pass
- cout << "=====Student Who did not Pass====="<<endl;
-for(int i=0; i<array_size; i++){
-  if(grade[i]<grade_average){
-    cout << name[i]<<endl;
+  if (key == arr[index]){
+    cout << '\n' << "CONGRATULATION!! YOU ARE SO LUCKY";
   }
-}
-cout <<endl;
+  else{
+    cout << '\n' << "SORRY!! TRY AGAIN";
+  }
+} 
 
- cout << "Lowest grade is " << minname <<" " <<min <<endl;
- cout << "Highest grade is " << maxname <<" " <<max <<endl;
- cout << "Grade average is : " << grade_average<<endl;
+int main(){
+  //read the file
+  ifstream input;
+  input.open("lottery_winner.txt");
 
-  input.close();
+  const int arr_size = 7;
+  int arr[arr_size];
+
+  for(int i = 0; i < arr_size; i++){
+    input >> arr[i];
+    
+  }
+
+  sort(arr, arr_size);
+
+  int key;
+  cout << '\n' << " Enter yours number = ";
+  cin >> key;
+  int high = arr_size - 1;
+  int low = 0;
+  int index = 0;
+
+  binarysearch(arr, key, arr_size, index, high,low);
+
   return 0;
-
 }

@@ -1,42 +1,38 @@
-#include<iostream>
-#include<fstream>
+#include <iostream>
 using namespace std;
 
-int main() {
-  int min,max;
-  double average;
-  int myArray[100];
-  int sum=0;
 
-  ifstream file("lab11_randnum.txt");
-  for(int i=0; i<100; i++){
-    file >> myArray[i];
-  }
-
-  max= myArray[0];
-  for(int i=0; i<100; i++){
-    if(myArray[i]>max){
-      max=myArray[i];
+int my_arr[] = {1, 4, 7, 2, 6, 3, 5};
+int main () {
+  
+  const int array_size = 7;
+  cout<<"=====DESCENDING====="<<endl;
+  for(int i=0; i<array_size-1; i++) {
+    for(int j=i+1; j<array_size; j++) {
+      if(my_arr[i]<my_arr[j]) {
+        int temp = my_arr[i];
+        my_arr[i] = my_arr[j];
+        my_arr[j] = temp;
+      }
     }
   }
+  for(int i=0; i< array_size; i++) {
+    cout <<"my_arr"<<"["<<i<<"]"<<" = "<<my_arr[i] <<endl;
+  }
+  cout <<endl;
 
-  min=myArray[0];
-  for(int i=0; i<100; i++){
-    if(myArray[i]<min){
-      min=myArray[i];
+cout<<"=====ASCENDING====="<<endl;
+  for(int i=0; i<array_size-1; i++) {
+    for(int j=i+1; j<array_size; j++) {
+      if(my_arr[i]>my_arr[j]) {
+        int temp = my_arr[i];
+        my_arr[i] = my_arr[j];
+        my_arr[j] = temp;
+      }
     }
   }
-
-  sum=0;
-  for(int i=0; i<100; i++){
-    sum += myArray[i];
+  for(int i=0; i< array_size; i++) {
+    cout <<"my_arr"<<"["<<i<<"]"<<" = "<<my_arr[i] <<endl;
   }
-  average=sum/100;
-
-  cout << "Max is :"<<max<<endl;
-  cout << "min is :"<<min<<endl;
-  cout << "Average is :"<<average<<endl;
-
-return 0;
-
+  return 0;
 }

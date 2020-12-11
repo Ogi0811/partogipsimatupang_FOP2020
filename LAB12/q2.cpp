@@ -1,88 +1,63 @@
 #include <iostream>
-#include <fstream>
-#include <cstdlib>
 using namespace std;
 
-int main (){
-  ifstream input;
-  input.open("lab11_employee.txt");
 
-  if(input.fail()){
-    cout <<" ERROR; File could not open."<<endl;
-    exit(1);
-  }
-
-  const int array_size = 8;
-
-  string name[array_size];
-  double salary[array_size];
-
-  int i=0;
-  double avg_salary=0;
-  string line;
-
-  while(getline(input, line)) {
-    int nameEndPos = line.find('$')-1;
-    name[i] = line.substr(0, nameEndPos);
-    int salaryStartPos = line.find('$')+1;
-    int salaryEndPos = line.find('\n');
-    salary[i] = stod(line.substr(salaryStartPos,salaryEndPos));
-    ++i;
-  }
-
-  for(int i=0; i< array_size; i++) {
-    cout << name[i] <<" = "<<salary[i] <<endl;
-  }
-  cout <<endl;
-
-//To find lowest
-string minname = name[0];
-double min = salary[0];
-for(int i=0; i<array_size; i++) {
-  if(salary[i]<min){
-    min=salary[i];
-    minname=name[i];
-  }
+void linearsearch(int my_arr[], int key,int size, int index) {
+	for(int i=0; i < size; i++){
+		if(key==my_arr[i]){
+			index =i;
+		}
+	}
+	cout <<"Linear search "<<key<<" is in index "<<index<<endl;
+	cout <<endl;
 }
 
-//To find Highest
- string maxname = name[0];
- double max = salary[0];
- for(int i=0; i<array_size; i++) {
-  if(salary[i]>max){
-    max=salary[i];
-    maxname=name[i];
-  }
- }
-
-//Salaray average
-int sum = 0;
-double salary_average;
-for(int i=0; i<array_size; i++){
-  sum+=salary[i];
+int binarysearch(int my_arr[], int key,int size, int index,int low, int high) {
+	while(high>=low){
+		
+		int mid= (high + low)/2;
+		
+		if(key<my_arr[mid]){
+			high = mid- 1;
+		}
+		else if(key == my_arr[mid]){
+			index=mid;
+			break;
+		}
+		else if (key > my_arr[mid]){
+			low=mid+1;
+		}
+	}
+	
+	cout <<"Binary search "<<key<<" is in index "<<index<<endl;
 }
-salary_average = sum/array_size;
-
-//To know salary above average 
-for(int i=0; i<array_size; i++){
-  if(salary[i]>salary_average){
-    cout <<"Salary above average is " << name[i]<<endl;
+int main(){
+	int size=7;
+	int my_arr[size]={1, 4, 7, 2, 6, 3, 5};
+	
+	for(int i=0; i<size-1; i++) {
+    for(int j=i+1; j<size; j++) {
+      if(my_arr[i]>my_arr[j]) {
+        int temp = my_arr[i];
+        my_arr[i] = my_arr[j];
+        my_arr[j] = temp;
+      }
+    }
   }
-}
-cout <<endl;
-
-//To know salary under average
-for(int i=0; i<array_size; i++){
-  if(salary[i]<salary_average){
-    cout <<"Salary under average is " << name[i]<<endl;
+  for(int i=0; i<size; i++) {
+    cout <<my_arr[i];
   }
-}
-cout <<endl;
-
-cout << "Lowest is " << minname <<" " <<min <<endl;
-cout << "Highest is " << maxname <<" " <<max <<endl;
-
-  input.close();
-  return 0;
-
+  
+  int key;
+  cout << endl;
+  cout << "what number : ";
+  cin >> key;
+  
+  int high = size -1;
+  int low = 0;
+  
+  int index =0;
+  linearsearch(my_arr, key, size, index);
+  binarysearch(my_arr, key, size, index, low, high);
+  
 }
